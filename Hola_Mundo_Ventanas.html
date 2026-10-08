@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andy</title>
+    <style>
+        :root {
+            --pink-1: #ffedf7;
+            --pink-2: #ffd7ea;
+            --pink-3: #ff7bb5;
+            --pink-4: #ff4fa2;
+            --rose: #ff3d81;
+            --deep: #8a1e4f;
+            --shadow: rgba(138, 30, 79, 0.28);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #fff9fb, #ffe1ee 30%, #ffd7eb 100%);
+            color: var(--deep);
+            overflow: hidden;
+            position: relative;
+        }
+
+        #hearts {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+
+        .heart-bg {
+            position: absolute;
+            font-size: clamp(16px, 2vw, 30px);
+            color: rgba(255, 95, 160, 0.7);
+            animation: floatHeart 12s linear infinite;
+            user-select: none;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(15px) scale(0.8);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-110vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+            width: min(92vw, 520px);
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid rgba(255, 111, 180, 0.4);
+            border-radius: 28px;
+            box-shadow: 0 18px 35px var(--shadow);
+            padding: 28px 20px 20px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .photo-frame {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .photo {
+            width: min(78vw, 360px);
+            max-height: 430px;
+            object-fit: cover;
+            border-radius: 26px;
+            border: 5px solid rgba(255, 117, 186, 0.7);
+            box-shadow: 0 12px 28px rgba(255, 97, 173, 0.35);
+            background: #fff;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--pink-3), var(--pink-4));
+            color: white;
+            border: none;
+            border-radius: 999px;
+            padding: 16px 28px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 12px 22px rgba(255, 79, 162, 0.35);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 16px 28px rgba(255, 79, 162, 0.42);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(43, 12, 25, 0.48);
+            z-index: 30;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-box {
+            position: relative;
+            width: min(88vw, 440px);
+            background: linear-gradient(135deg, #fff4a8, #fff0f7);
+            border-radius: 26px;
+            text-align: center;
+            padding: 28px 22px 20px;
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.25);
+            border: 3px solid rgba(255, 108, 176, 0.5);
+            overflow: hidden;
+        }
+
+        .laugh {
+            font-size: 3.2rem;
+            display: block;
+            margin-bottom: 8px;
+            animation: bounce 0.7s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: scale(1) rotate(-8deg); }
+            to { transform: scale(1.12) rotate(8deg); }
+        }
+
+        .modal-box h2 {
+            margin: 0;
+            font-size: clamp(1.7rem, 4vw, 2.4rem);
+            color: var(--deep);
+        }
+
+        .confetti-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 18px;
+            top: -20px;
+            opacity: 0.9;
+            animation: fall 2.8s ease-in forwards;
+            border-radius: 3px;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translate3d(0, 0, 0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(var(--shift), 110vh, 0) rotate(540deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="hearts" aria-hidden="true"></div>
+
+    <div class="card">
+        <div class="photo-frame">
+            <img class="photo" src="Andy.jpeg" alt="Foto de Andy">
+        </div>
+
+        <button class="btn" type="button" id="btnMensaje">Click aqui chiquito</button>
+    </div>
+
+    <div class="modal" id="modalCafe" aria-live="polite">
+        <div class="modal-box">
+            <div class="confetti-layer" id="confettiLayer"></div>
+            <span class="laugh" aria-hidden="true">😂</span>
+            <h2>Me debes un café</h2>
+        </div>
+    </div>
+
+    <script>
+        const hearts = document.getElementById('hearts');
+
+        for (let i = 0; i < 28; i++) {
+            const heart = document.createElement('span');
+            heart.className = 'heart-bg';
+            heart.textContent = '❤';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.animationDelay = `${(Math.random() * 8).toFixed(2)}s`;
+            heart.style.fontSize = `${18 + Math.random() * 24}px`;
+            heart.style.opacity = (0.5 + Math.random() * 0.5).toFixed(2);
+            hearts.appendChild(heart);
+        }
+
+        const modal = document.getElementById('modalCafe');
+        const btn = document.getElementById('btnMensaje');
+        const confettiLayer = document.getElementById('confettiLayer');
+
+        function createConfetti() {
+            confettiLayer.innerHTML = '';
+            const colors = ['#ff3d81', '#ffd166', '#06d6a0', '#4cc9f0', '#f72585', '#ff9f1c'];
+
+            for (let i = 0; i < 70; i++) {
+                const piece = document.createElement('span');
+                piece.className = 'confetti';
+                piece.style.left = `${Math.random() * 100}%`;
+                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.animationDelay = `${(Math.random() * 0.8).toFixed(2)}s`;
+                piece.style.setProperty('--shift', `${(Math.random() * 180 - 90).toFixed(0)}px`);
+                confettiLayer.appendChild(piece);
+            }
+        }
+
+        btn.addEventListener('click', () => {
+            createConfetti();
+            modal.classList.add('show');
+
+            setTimeout(() => {
+                modal.classList.remove('show');
+            }, 2600);
+        });
+    </script>
+</body>
+</html>

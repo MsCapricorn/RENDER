@@ -1,0 +1,8 @@
+# Archivos con contraseñas: nunca subirlos a GitHub
+.env
+*.env
+
+# Archivos del sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/

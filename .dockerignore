@@ -1,0 +1,7 @@
+# Lo que NO se copia al contenedor de Render
+.git
+.gitignore
+.dockerignore
+Dockerfile
+.env
+database.sql
